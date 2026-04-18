@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% load custom_filter %}
+
+
+{% block content %}
+    <h1>Attendance Report</h1>
+
+    <h2>Output 1 — Working Hours Per Day</h2>
+    <table>
+        <tr>
+            <th>Employee ID</th>
+            <th>Employee Name</th>
+            {% for date in dates %}
+                <th>{{ date }}</th>
+            {% endfor %}
+        </tr>
+        {% for row in report %}
+        <tr>
+            <td>{{ row.employee.employee_id }}</td>
+            <td>{{ row.employee.name }}</td>
+            {% for att in row.attendance %}
+                <td>{{ att.working_hours|to_hours_minutes }} hrs</td>
+            {% endfor %}
+        </tr>
+        {% endfor %}
+    </table>
+
+    <br><br>
+
+    <h2>Output 2 — Start and End Time Per Day</h2>
+    <table>
+        <tr>
+            <th>Employee ID</th>
+            <th>Employee Name</th>
+            {% for date in dates %}
+                <th>{{ date }}</th>
+            {% endfor %}
+        </tr>
+        {% for row in report %}
+        <tr>
+            <td rowspan="2">{{ row.employee.employee_id }}</td>
+            <td>{{ row.employee.name }} (Start)</td>
+            {% for att in row.attendance %}
+                <td>{{ att.start_time }}</td>
+            {% endfor %}
+        </tr>
+        <tr>
+            <td>{{ row.employee.name }} (End)</td>
+            {% for att in row.attendance %}
+                <td>{{ att.end_time }}</td>
+            {% endfor %}
+        </tr>
+        {% endfor %}
+    </table>
+{% endblock %}

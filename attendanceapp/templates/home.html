@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>Employee Attendance Management System</h1>
+    <h2>Employees List</h2>
+    <table>
+        <tr>
+            <th>Employee ID</th>
+            <th>Name</th>
+            <th>Company</th>
+        </tr>
+        {% for employee in employees %}
+        <tr>
+            <td>{{ employee.employee_id }}</td>
+            <td>{{ employee.name }}</td>
+            <td>{{ employee.company }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    <br>
+    <a href="/report/">View Attendance Report →</a>
+{% endblock %}
