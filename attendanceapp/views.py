@@ -1,5 +1,4 @@
 from django.shortcuts import render
-from django.http import JsonResponse
 from .models import Employee, Attendance
 from .utils import load_excel_data
 
@@ -32,24 +31,3 @@ def attendance_report(request):
                 })
         report.append(row)
     return render(request,'attendance_report.html', {'report': report, 'dates': dates})
-
-def api_attendance(request):
-    employees = Employee.objects.all()
-    data = []
-    for employee in employees:
-        attendance = Attendance.objects.filter(employee=employee)
-        emp_data = {
-            'employee_id' : employee.employee_id,
-            'name': employee.name,
-            'company': employee.company,
-            'attendance': []
-        }
-        for att in attendance:
-            emp_data['attendance'].append({
-                'date' : str(att.date),
-                'start_time' : str(att.start_time),
-                'end_time' : str(att.end_time),
-                'working_hours' : att.working_hours
-            })
-        data.append(emp_data)
-    return JsonResponse({'employees': data})
