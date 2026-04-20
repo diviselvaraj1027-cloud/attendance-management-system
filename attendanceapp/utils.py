@@ -52,7 +52,10 @@ def load_excel_data():
 
                 #Calculating working hours
                 diff = end_dt - start_dt
-                working_hours = round(diff.total_seconds()/3600,2)
+                total_seconds = diff.total_seconds()
+                hours = int(total_seconds // 3600)
+                minutes = int((total_seconds % 3600) // 60)
+                working_hours = f"{hours}h {minutes}m"
 
                 #Attendance saving
                 Attendance.objects.get_or_create(

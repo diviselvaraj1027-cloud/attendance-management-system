@@ -1,5 +1,4 @@
 {% extends 'base.html' %}
-{% load custom_filter %}
 
 
 {% block content %}
@@ -19,7 +18,7 @@
             <td>{{ row.employee.employee_id }}</td>
             <td>{{ row.employee.name }}</td>
             {% for att in row.attendance %}
-                <td>{{ att.working_hours|to_hours_minutes }} hrs</td>
+                <td>{{ att.working_hours}} hrs</td>
             {% endfor %}
         </tr>
         {% endfor %}
